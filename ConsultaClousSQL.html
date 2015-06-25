@@ -1,0 +1,61 @@
+<!
+https://developers.google.com/appengine/docs/java/cloud-sql/
+-->
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="com.google.appengine.api.utils.SystemProperty" %>
+
+<html>
+  <body>
+
+<%
+String url = null;
+if (SystemProperty.environment.value() ==
+    SystemProperty.Environment.Value.Production) {
+  // Load the class that provides the new "jdbc:google:mysql://" prefix.
+  Class.forName("com.mysql.jdbc.GoogleDriver");
+  url = "jdbc:google:mysql://crucial-bonito-58:inicio/dbmaps?user=root";
+} else {
+  // Local MySQL instance to use during development.
+  Class.forName("com.mysql.jdbc.Driver");
+  url = "jdbc:mysql://173.194.108.157:3306/dbmaps?user=root";
+}
+
+Connection conn = DriverManager.getConnection(url);
+ResultSet rs = conn.createStatement().executeQuery(
+    "SELECT * FROM georeferencia");
+%>
+
+<table style="border: 1px solid black">
+<tbody>
+<tr>
+<th width="35%" style="background-color: #CCFFCC; margin: 5px">Name</th>
+<th style="background-color: #CCFFCC; margin: 5px">Message</th>
+<th style="background-color: #CCFFCC; margin: 5px">ID</th>
+</tr>
+
+<%
+while (rs.next()) {
+    String idgeoreferencia = rs.getInt("idgeoreferencia");
+    String latitud = rs.getFloat("latitud");
+    int longitud = rs.getFloat("longitud");
+ %>
+<tr>
+<td><%= idgeoreferencia %></td>
+<td><%= latitud %></td>
+<td><%= longitud %></td>
+</tr>
+<%
+}
+conn.close();
+%>
+
+</tbody>
+</table>
+<br />
+No more messages!
+<p><strong>Adió!</strong></p>
+  </body>
+</html>

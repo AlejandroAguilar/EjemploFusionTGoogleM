@@ -1,0 +1,132 @@
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:fb="http://ogp.me/ns/fb#">
+<head> 
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+<html>
+  <head>
+    <title>layer test parklotproject</title>
+<script type="text/javascript"
+src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <script type="text/javascript">
+
+///  http://stackoverflow.com/questions/17178730/fusion-tables-map-how-to-display-the-infowindows-further-down-on-the-google-ma
+///  http://jsfiddle.net/doktormolle/EezcR/
+
+      function initialize() {
+        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+          center: new google.maps.LatLng(43.651541,-79.371006),
+          zoom: 9,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        var infoWindow = new google.maps.InfoWindow();
+
+        // Initialize the first layer
+       var firstLayer = new google.maps.FusionTablesLayer({
+          query: {
+            select: 'Location',
+            from: '1bkYbC7wZRrvWELw96g3mcwa9mGwSI-auSu9wP70'
+          },
+          map: map,
+          suppressInfoWindows: true
+        });
+        google.maps.event.addListener(firstLayer, 'click', function(e) {
+          windowControl(e, infoWindow, map);
+        });
+
+        // Initialize the second layer
+        var secondLayer = new google.maps.FusionTablesLayer({
+          query: {
+            select: 'Location',
+            from: '1Zw6q0HhqWPtorfs-7FmLzP_mabUz326W_OuCTQE'
+          },
+          map: map,
+          suppressInfoWindows: true
+        });
+        google.maps.event.addListener(secondLayer, 'click', function(e) {
+          windowControl(e, infoWindow, map);
+        });
+      }
+
+      // Open the info window at the clicked location
+      function windowControl(e, infoWindow, map) {
+        alert(e.infoWindowHtml);
+        alert(e.LatLng);
+        alert(e.pixelOffset);
+        infoWindow.setOptions({
+          content: e.infoWindowHtml,
+          position: e.latLng,
+          pixelOffset: e.pixelOffset
+        });
+        infoWindow.open(map);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <style type="text/css">
+BODY { 
+margin-top : 0px; 
+margin-left : 20px; 
+background-color : #ffffff; 
+} 
+body, td, th { 
+letter-spacing : 1px; 
+line-height : 140%; 
+font-family : Verdana, "Trebuchet MS", Arial, Helvetica, sans-serif; 
+font-size : 13px; 
+} 
+html {
+    overflow-y: scroll; 
+}
+#welcomecontrols {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    opacity: .8;
+background-color : #ffffff;     }
+#map-canvas{
+    top:10px;
+    position:absolute;
+    clear:none;
+    z-index:1;
+    padding: 0px;
+    margin: 0px;
+    height: 600px;
+    left: 20px;
+    width: 96%;
+} 
+.googft-info-window{
+    background-color:white;
+    text-align:left;
+    z-index: 1000;   
+    height:400px; width:590px; overflow: auto;
+}
+</style>     
+</head>
+<body> 
+
+<div  id="welcomecontrols">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td valign="bottom">
+<h1><span style="color:#333333; font-size:15px;">Welcome to</span><br>
+<span style="letter-spacing:2px; color:#D2691E; font-size:22px;"><b>The Toronto Park Lot Project</b></span></h1>
+</td>
+<td width="10" align="right" valign="top">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="1" valign="top">
+<p><b>an exploration of the earliest days of the TOWN OF YORK, founded 1793 by <nobr>John Graves Simcoe,</nobr> first Lieutenant-Governor of Upper Canada</b><br>
+<i>(The Town of York was incorporated 1834 as the City of Toronto.)</i><br>
+&nbsp;&nbsp;</p>
+</td>
+<td align="left" valign="top">&nbsp;</td>
+</tr>
+</table>
+<!--
+-->
+</div>
+    <div id="map-canvas"></div>
+</body>
+</html>

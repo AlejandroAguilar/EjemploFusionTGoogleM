@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Google Fusion Tables API Example</title>
+  </head>
+  <body>
+    <div id="content"></div>
+	
+    <script>
+    function handler(response) {
+      for (var i = 0; i < response.items.length; i++) {
+        var item = response.items[i];
+        // Either show the body or the automatic columns of the template
+        if (item.body) {
+          document.getElementById("content").innerHTML += "<br>" + item.body;
+        } else {
+          for (var j = 0; j < item.automaticColumnNames.length; j++) {
+            document.getElementById("content").innerHTML += "<br>" + item.automaticColumnNames[j];
+          }
+        }
+      }
+    }
+    </script>
+	<!--
+		60 municipios e información
+		id:1g8OxWNVxNo2B6fqNjjuWUoNVVS8ljTJ32qkf9oE
+		
+		localidades
+		id:10RCHr-0qxplD1ju4jElQAfxg5A0WpDruMWmPRNM
+		
+		key:AIzaSyDMsshUXDV__vJaR20WsjOa0rTEZMatx04
+	
+    <script src="https://www.googleapis.com/fusiontables/v1/tables/1g8OxWNVxNo2B6fqNjjuWUoNVVS8ljTJ32qkf9oE/templates?callback=handler&key=AIzaSyDMsshUXDV__vJaR20WsjOa0rTEZMatx04"></script>
+	-->
+ <script src="https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1g8OxWNVxNo2B6fqNjjuWUoNVVS8ljTJ32qkf9oE where idINEGI=44&key=AIzaSyDMsshUXDV__vJaR20WsjOa0rTEZMatx04"></script>
+
+ </body>
+</html>
